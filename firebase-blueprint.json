@@ -1,0 +1,119 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "User profile with role-based access control.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["admin", "viewer"] },
+        "displayName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "member": {
+      "title": "Member",
+      "description": "Organization member details.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "address": { "type": "string" },
+        "category": { "type": "string", "enum": ["Supporter", "Worker", "Associate", "Member"] },
+        "joinDate": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["active", "inactive"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "category", "status"]
+    },
+    "plan": {
+      "title": "Monthly Plan",
+      "description": "Monthly tasks and planning.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "deadline": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["pending", "ongoing", "completed"] },
+        "assignedTo": { "type": "string" },
+        "month": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "deadline", "status", "month"]
+    },
+    "activity": {
+      "title": "Activity Report",
+      "description": "Dawati work, events, and meetings.",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["Dawati", "Event", "Meeting", "Note"] },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "participants": { "type": "number" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "title", "date"]
+    },
+    "income": {
+      "title": "Income Record",
+      "description": "Financial income tracking.",
+      "type": "object",
+      "properties": {
+        "donorName": { "type": "string" },
+        "amount": { "type": "number" },
+        "month": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "category": { "type": "string", "enum": ["donation", "subscription", "special fund"] },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["donorName", "amount", "month", "date", "category"]
+    },
+    "expense": {
+      "title": "Expense Record",
+      "description": "Financial expense tracking.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "amount": { "type": "number" },
+        "date": { "type": "string", "format": "date" },
+        "category": { "type": "string", "enum": ["event", "transport", "printing", "others"] },
+        "approvedBy": { "type": "string" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "amount", "date", "category"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "user",
+      "description": "User profiles."
+    },
+    "/members/{memberId}": {
+      "schema": "member",
+      "description": "Organization members."
+    },
+    "/plans/{planId}": {
+      "schema": "plan",
+      "description": "Monthly tasks and plans."
+    },
+    "/activities/{activityId}": {
+      "schema": "activity",
+      "description": "Activity logs and reports."
+    },
+    "/income/{incomeId}": {
+      "schema": "income",
+      "description": "Income records."
+    },
+    "/expense/{expenseId}": {
+      "schema": "expense",
+      "description": "Expense records."
+    }
+  }
+}
